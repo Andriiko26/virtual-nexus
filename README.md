@@ -13,5 +13,20 @@ Install requariments: `pip install -r requariments.txt`
 
 Go to project directory and run server: `cd virual_nexus_project`, `python manage.py runserver`
 
+## Envsroment
+Setup all this enviroment
+```
+#django
+SECRET_KEY=
+DEBUG=
+
+#postgree
+NAME=
+USER=
+PASSWORD=
+HOST=
+PORT=
+```
+
 ## If you find a bug
 Contact me: garvatmaksim@gmail.com
