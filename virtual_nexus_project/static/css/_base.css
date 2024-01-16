@@ -5,7 +5,7 @@ body {
 
 .navbar {
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-start;
     align-items: center;
     padding: 10px;
     background-color: #333;
@@ -22,4 +22,24 @@ body {
 .navbar a:hover {
     background-color: #ddd;
     color: black;
+}
+
+
+.logout-form {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.logout-button {
+    background-color: #333;
+    color: #fff;
+    border: none;
+    padding: 10px 15px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.logout-button:hover {
+    background-color: #555;
 }
