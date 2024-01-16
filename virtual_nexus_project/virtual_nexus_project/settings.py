@@ -39,12 +39,28 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.sites',  
+
+    # Third-party 
+    'allauth',
+    'allauth.account', 
 
     #debug tool
     'debug_toolbar',
+
     #local
     'posts.apps.PostsConfig',
 ]
+# djagno-allauth config
+SITE_ID = 1
+
+AUTHENTICATION_BACKENDS = (
+    'django.contrib.auth.backends.ModelBackend',
+    'allauth.account.auth_backends.AuthenticationBackend',
+)
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+LOGIN_REDIRECT_URL = 'post-home'
+ACCOUNT_LOGOUT_REDIRECTS = 'post-home'
 
 MIDDLEWARE = [
     "debug_toolbar.middleware.DebugToolbarMiddleware",
