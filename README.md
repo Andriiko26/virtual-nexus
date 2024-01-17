@@ -1,5 +1,6 @@
 # Social media
-I took all the front-end from ChatGPT
+It's only beck-end part so I took all the front-end from ChatGPT
+
 ## To run it on your machine
 Clone the ropository: `git clone https://github.com/Maksim325/virtual-nexus.git`
 
