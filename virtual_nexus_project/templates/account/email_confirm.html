@@ -1,0 +1,18 @@
+{% extends '_base.html' %}
+{% load static %}
+
+
+{% block title %}Email Confirmation{% endblock title %}
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'css/signup.css' %}">
+    <div class="confirmation-container">
+        <h2>Email Confirmation</h2>
+        <p>Please confirm your email address by clicking the link we sent to your inbox.</p>
+        <form action="{% url 'account_confirm_email' confirmation.key %}" method="post">
+            {% csrf_token %}
+            <button type="submit">Confirm Email</button>
+        </form>
+        <p>If you haven't received the email, you can <a href="{% url 'account_email_verification_sent' %}">request another one</a>.</p>
+    </div>
+{% endblock %}
