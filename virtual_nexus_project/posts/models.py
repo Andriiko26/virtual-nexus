@@ -4,6 +4,7 @@ from django.urls import reverse
 import uuid
 
 class Post(models.Model):
+    
     id = models.UUIDField(
         primary_key=True,
         default= uuid.uuid4,

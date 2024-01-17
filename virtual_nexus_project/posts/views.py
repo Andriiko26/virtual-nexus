@@ -3,41 +3,59 @@ from django.views import View
 from .models import Post
 from .forms import PostForm
 
+
 class PostsListView(View):
+    """Return list of posts"""
+
     template_name = 'posts/index.html'
 
     def get(self, request):
+
         posts = Post.objects.all()
         context={
             'posts':posts,
         }
         return render(request, self.template_name, context)
 
+
 class PostDetailView(View):
+    """Return detail of posts or 404"""
+
     template_name = 'posts/post_detail.html'
     
     def get(self, request, pk):
+
         post = get_object_or_404(Post, pk=pk)
         context = {
             'post': post,
         }
         return render(request, self.template_name, context)
 
+
 class CreatePostView(View):
+    """Create post class
+
+    If the method is GET, it returns the post form. 
+    If method is POST, it checks valid of data and add them to database 
+    """
     template_name = 'posts/post_create.html'
     form_class = PostForm
 
     def get(self, request):
+
         form = self.form_class()
         context = {
             'form': form
         }
         return render(request, self.template_name, context)
+    
     def post(self, request):
+
         form = self.form_class(request.POST)
         if form.is_valid():
             form.save()
-            return redirect('post-home')
+            return redirect('post-home') 
+        
         context = {
             'form': form
         }
