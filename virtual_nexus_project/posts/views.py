@@ -1,3 +1,4 @@
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.shortcuts import render, get_object_or_404, redirect
 from django.views import View 
 from .models import Post
@@ -6,16 +7,23 @@ from .forms import PostForm
 
 class PostsListView(View):
     """Return list of posts"""
-
     template_name = 'posts/index.html'
+    posts_per_page = 10
 
     def get(self, request):
+        post_list = Post.objects.all()
 
-        posts = Post.objects.all()
-        context={
-            'posts':posts,
-        }
-        return render(request, self.template_name, context)
+        paginator = Paginator(post_list, self.posts_per_page)
+        page = request.GET.get('page')
+
+        try:
+            posts = paginator.page(page)
+        except PageNotAnInteger:
+            posts = paginator.page(1)
+        except EmptyPage:
+            posts = paginator.page(paginator.num_pages)  
+
+        return render(request, self.template_name, {'posts':posts})
 
 
 class PostDetailView(View):
