@@ -8,10 +8,10 @@ from .forms import PostForm
 class PostsListView(View):
     """Return list of posts"""
     template_name = 'posts/index.html'
-    posts_per_page = 10
+    posts_per_page = 3
 
     def get(self, request):
-        post_list = Post.objects.all()
+        post_list = Post.objects.all().order_by('-title')
 
         paginator = Paginator(post_list, self.posts_per_page)
         page = request.GET.get('page')

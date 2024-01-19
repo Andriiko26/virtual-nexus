@@ -40,7 +40,6 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.sites',  
-    'django.core.paginator',
     # Third-party 
     'allauth',
     'allauth.account', 
@@ -50,6 +49,7 @@ INSTALLED_APPS = [
 
     #local
     'posts.apps.PostsConfig',
+    'users.apps.UsersConfig',
 ]
 # djagno-allauth config
 SITE_ID = 1
