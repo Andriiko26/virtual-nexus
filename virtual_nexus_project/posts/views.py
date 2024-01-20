@@ -61,7 +61,9 @@ class CreatePostView(View):
 
         form = self.form_class(request.POST)
         if form.is_valid():
-            form.save()
+            post = form.save(commit=False)
+            post.author = request.user
+            post.save()
             return redirect('post-home') 
         
         context = {
