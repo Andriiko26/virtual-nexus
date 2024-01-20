@@ -1,0 +1,27 @@
+{% extends '_base.html' %}
+{% load static %}
+{% block title %}Profile{% endblock title %}
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'css/profile.css' %}">
+<div class="profile-container">
+    <h2>User Profile</h2>
+    <div class="profile-info">
+
+        {% if user_profile.avatar %}
+            <img src="{{ user_profile.avatar.url }}" alt="Avatar" class="profile-image">
+        {% else %}
+            <img src="{% static 'images/default_avatar.jpg' %}" alt="Default Avatar" class="profile-image">
+        {% endif %}
+
+        <p>Username: {{ user.username }}</p>
+        <p>Email: {{ user.email }}</p>
+
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Save Profile</button>
+          </form>
+    </div>
+</div>
+{% endblock %}
