@@ -23,6 +23,7 @@ urlpatterns = [
     path('accounts/', include('allauth.urls')),
     # local 
     path('posts/', include('posts.urls')),
+    path('profile/', include('users.urls')),
     # tool bar
     path('__debug__/', include('debug_toolbar.urls')),
 
