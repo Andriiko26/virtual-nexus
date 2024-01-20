@@ -12,17 +12,23 @@
         <a href="{% url 'post-home' %}">Home</a>
         <a href="{% url 'post-create' %}">Create post</a>
         {% if user.is_authenticated %}
-            {% csrf_token %}
             <form action="{% url 'account_logout' %}" method="post" class="logout-form">
                 {% csrf_token %}
                 <button type="submit" class="logout-button">Logout</button>
-            </form>            
+            </form> 
+            <a href="{% url 'profile' %}" class="profile-link">
+                {% if user_profile.avatar %}
+                    <img src="{{ user_profile.avatar.url }}" alt="Avatar" class="profile-image">
+                {% else %}
+                    <img src="{% static 'images/default_avatar.jpg' %}" alt="Default Avatar" class="profile-image">
+                {% endif %}
+            </a>                       
         {% else %}
             <a href="{% url 'account_login' %}">Log In</a>
             <a href="{% url 'account_signup' %}">Sign Up</a>
         {% endif %}
-
     </div>
+
     
     <div class="container">
         {% block content%}
