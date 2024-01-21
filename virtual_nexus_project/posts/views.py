@@ -12,7 +12,7 @@ class PostsListView(View):
     posts_per_page = 3
 
     def get(self, request):
-        post_list = Post.objects.select_related('author').order_by('-title')
+        post_list = Post.objects.select_related('author').only('title', 'author__username').order_by('-title')
 
         paginator = Paginator(post_list, self.posts_per_page)
         page = request.GET.get('page')
