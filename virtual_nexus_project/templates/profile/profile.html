@@ -14,8 +14,8 @@
             <img src="{% static 'images/default_avatar.jpg' %}" alt="Default Avatar" class="profile-image">
         {% endif %}
 
-        <p>Username: {{ user.username }}</p>
-        <p>Email: {{ user.email }}</p>
+        <p>Username: {{ user.user.username }}</p>
+        <p>Email: {{ user.user.email }}</p>
 
         <form method="post" enctype="multipart/form-data">
             {% csrf_token %}

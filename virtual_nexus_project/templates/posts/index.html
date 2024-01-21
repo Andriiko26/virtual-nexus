@@ -7,7 +7,7 @@
 <link rel="stylesheet" href="{% static 'css/index.css' %}">
 <div class="container">
     <h2><a href="{{ post.get_absolute_url }}">{{ post.title }}</a></h2>
-    <h3><a href="{{ post.author.userprofile.get_absolute_url }}">{{ post.author.username }}</a></h3>
+    <h3><a href="{% url 'profile-detail' pk=post.author.id %}">{{ post.author.username }}</a></h3>
 </div>
 {% endfor %}
 <div class="pagination">
