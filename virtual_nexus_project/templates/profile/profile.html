@@ -16,12 +16,13 @@
 
         <p>Username: {{ user.user.username }}</p>
         <p>Email: {{ user.user.email }}</p>
-
-        <form method="post" enctype="multipart/form-data">
-            {% csrf_token %}
-            {{ form.as_p }}
-            <button type="submit">Save Profile</button>
-          </form>
+        {% if user.user == request.user %}
+            <form method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button type="submit">Save Profile</button>
+            </form>
+        {% endif %}
     </div>
 </div>
 {% endblock %}
