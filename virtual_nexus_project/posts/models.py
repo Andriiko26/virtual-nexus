@@ -11,7 +11,7 @@ class Post(models.Model):
         editable=False,
     )
     title = models.CharField(max_length=50)
-    author = models.ForeignKey(User, on_delete=models.CASCADE)
+    author = models.ForeignKey(User, on_delete=models.CASCADE, related_name='post-author')
     body = models.TextField()
 
     def __str__(self):
