@@ -14,14 +14,8 @@
             <img src="{% static 'images/default_avatar.jpg' %}" alt="Default Avatar" class="profile-image">
         {% endif %}
 
-        <p>Username: {{ user.bio }}</p>
-        {% if user == request.user %}
-            <form method="post" enctype="multipart/form-data">
-                {% csrf_token %}
-                {{ form.as_p }}
-                <button type="submit">Save Profile</button>
-            </form>
-        {% endif %}
+        <p>Username: {{ user.user.username }}</p>
+        <p>Bio: {{ user.bio }}</p>
     </div>
 </div>
 {% endblock %}

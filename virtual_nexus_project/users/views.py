@@ -18,12 +18,14 @@ class ProfileView(View):
         form = UserProfileForm(request.POST, request.FILES, instance=request.user.userprofile)
         
         if form.is_valid():
+            form.instance.bio = request.POST.get('bio', '')  # Replace 'bio' with the actual field name
+            form.instance.avatar = request.FILES.get('avatar', None)  # Replace 'avatar' with the actual field name
             form.save()
             return redirect('profile')
         return render(request, self.template_name, {'form': form}) 
     
 class ProfileDetailView(View):
-    template_name = 'profile/profile.html'
+    template_name = 'profile/profile_for_others_users.html'
 
     def get(self, request, pk):
         user_profile = get_object_or_404(UserProfile, pk=pk)
