@@ -8,13 +8,13 @@
     <h2>User Profile</h2>
     <div class="profile-info">
 
-        {% if user.avatar %}
-            <img src="{{ user.avatar.url }}" alt="Avatar" class="profile-image">
+        {% if user.userprofile.avatar %}
+            <img src="{{ user.userprofile.avatar.url }}" alt="Avatar" class="profile-image">
         {% else %}
             <img src="{% static 'images/default_avatar.jpg' %}" alt="Default Avatar" class="profile-image">
         {% endif %}
 
-        <p>Username: {{ user.bio }}</p>
+        <p>Username: {{ request.user.username }}</p>
         {% if user == request.user %}
             <form method="post" enctype="multipart/form-data">
                 {% csrf_token %}

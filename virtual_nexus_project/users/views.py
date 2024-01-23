@@ -11,18 +11,21 @@ class ProfileView(View):
     template_name = 'profile/profile.html'
 
     def get(self, request):
-        form = UserProfileForm(instance=request.user.userprofile)
+        profile = get_object_or_404(UserProfile, user=request.user)
+        form = UserProfileForm(instance=profile)
         return render(request, self.template_name, {'form': form})
-    
+
     def post(self, request):
-        form = UserProfileForm(request.POST, request.FILES, instance=request.user.userprofile)
+        profile = get_object_or_404(UserProfile, user=request.user)
+        form = UserProfileForm(request.POST, request.FILES, instance=profile)
         
         if form.is_valid():
-            form.instance.bio = request.POST.get('bio', '')  # Replace 'bio' with the actual field name
-            form.instance.avatar = request.FILES.get('avatar', None)  # Replace 'avatar' with the actual field name
+            form.save(commit=False)
+            form.instance.bio = request.POST.get('bio', '')
+            form.instance.avatar = request.FILES.get('avatar', None)
             form.save()
             return redirect('profile')
-        return render(request, self.template_name, {'form': form}) 
+        return render(request, self.template_name, {'form': form})
     
 class ProfileDetailView(View):
     template_name = 'profile/profile_for_others_users.html'

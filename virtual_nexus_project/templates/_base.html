@@ -17,8 +17,8 @@
                 <button type="submit" class="logout-button">Logout</button>
             </form> 
             <a href="{% url 'profile' %}" class="profile-link">
-                {% if user_profile.avatar %}
-                    <img src="{{ user_profile.avatar.url }}" alt="Avatar" class="profile-image">
+                {% if user.userprofile.avatar %}
+                    <img src="{{ user.userprofile.avatar.url }}" alt="Avatar" class="profile-image">
                 {% else %}
                     <img src="{% static 'images/default_avatar.jpg' %}" alt="Default Avatar" class="profile-image">
                 {% endif %}
