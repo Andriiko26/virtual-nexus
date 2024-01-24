@@ -27,6 +27,9 @@ USER=
 PASSWORD=
 HOST=
 PORT=
+
+#email
+DEFAULT_FROM_EMAIL=
 ```
 
 ## If you find a bug
