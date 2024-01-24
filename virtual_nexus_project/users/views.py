@@ -8,6 +8,11 @@ from .models import UserProfile
 
 @method_decorator(login_required(login_url=reverse_lazy('account_login')), name='dispatch')
 class ProfileView(View):
+    """Creating users profile pages 
+    If method is GET it returns form of user
+    If method is POST it saves data to database 
+    """
+    
     template_name = 'profile/profile.html'
 
     def get(self, request):
@@ -28,6 +33,8 @@ class ProfileView(View):
         return render(request, self.template_name, {'form': form})
     
 class ProfileDetailView(View):
+    """Return user profile by pk"""
+
     template_name = 'profile/profile_for_others_users.html'
 
     def get(self, request, pk):
