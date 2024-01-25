@@ -10,7 +10,7 @@ class UserProfileTest(TestCase):
             email='testuseremail@gmail.com',
             password='verysecurepassword123',   
         )
-        self.user_profile = UserProfile.objects.get_or_create (
+        self.user_profile = UserProfile.objects.get_or_create(
             user=self.user,
             defaults={'bio': 'Test bio.'}
         )
@@ -30,4 +30,11 @@ class UserProfileTest(TestCase):
         self.assertContains(response, '<h2>User Profile</h2>', html=True)
         self.assertNotContains(response, '<form method="post" enctype="multipart/form-data">', html=True)
 
-    
+    def test_user_profile_for_others(self):
+        
+        url = reverse('profile-detail', kwargs={'pk':self.user.pk})
+        response = self.client.get(url)
+
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'profile/profile_for_others_users.html')
+        self.assertContains(response, '<h2>User Profile</h2>', html=True)
