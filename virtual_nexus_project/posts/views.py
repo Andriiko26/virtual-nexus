@@ -71,3 +71,14 @@ class CreatePostView(View):
             'form': form
         }
         return render(request, self.template_name, context)
+    
+class PostSearch(View):
+    template_name = 'posts/search_results.html'
+
+    def get(self, request):
+        
+        query = request.GET.get('q','')
+        result_posts = Post.objects.filter(title__icontains=query)
+        return render(request, self.template_name, {'posts':result_posts, \
+                                                    'query':query})
+    
