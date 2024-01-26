@@ -3,13 +3,21 @@
 {% block title%} Home page {% endblock title %}
 
 {% block content %}
-{% for post in posts %}
+
 <link rel="stylesheet" href="{% static 'css/index.css' %}">
+
+<form class="search-form" method="GET" action="{% url 'post-search' %}">
+    <input class="search-input" type="text" name="q" placeholder="Searching...">
+    <button class="search-button" type="submit">Find</button>
+</form>
+
+{% for post in posts %}
 <div class="container">
     <h2><a href="{{ post.get_absolute_url }}">{{ post.title }}</a></h2>
     <h3><a href="{% url 'profile-detail' pk=post.author.id %}">{{ post.author.username }}</a></h3>
 </div>
 {% endfor %}
+
 <div class="pagination">
 	<span class="step-links">
 		{% if posts.has_previous %}
@@ -27,4 +35,5 @@
 		{% endif %}
 	</span>
 </div>
+
 {% endblock %}
