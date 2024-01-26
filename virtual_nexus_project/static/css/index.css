@@ -22,3 +22,34 @@
     margin: 0 10px;
     font-weight: bold;
 }
+
+.search-form {
+    display: flex;
+    flex-direction: column;
+    max-width: 150px;
+    justify-content: center;
+    align-items: center;
+    margin: 20px auto;
+
+}
+
+.search-input {
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+.search-button {
+    background-color: #333;
+    color: #fff;
+    border: none;
+    padding: 10px 15px;
+    cursor: pointer;
+    font-size: 14px;
+    border-radius: 15px;
+}
+
+.search-button:hover {
+    background-color: #555;
+}
