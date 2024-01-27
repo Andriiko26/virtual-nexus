@@ -15,6 +15,7 @@
         {% endif %}
 
         <p>Username: {{ request.user.username }}</p>
+        <p>Date join: {{ user.date_joined }}</p>
         {% if user == request.user %}
             <form method="post" enctype="multipart/form-data">
                 {% csrf_token %}
