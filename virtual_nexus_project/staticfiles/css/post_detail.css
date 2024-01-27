@@ -1,0 +1,30 @@
+.page-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.page-container h1 {
+    color: #333;
+}
+
+.page-container h2 a {
+    text-decoration: none;
+    color: #777;
+}
+
+.page-container h2 a:hover {
+    color: #999;
+}
+
+.page-container h3 {
+    color: #444;
+    line-height: 1.5;
+    margin-top: 10px;
+}
+
+.page-container hr {
+    margin: 20px 0;
+    border: 0;
+    border-top: 1px solid #ddd;
+}
