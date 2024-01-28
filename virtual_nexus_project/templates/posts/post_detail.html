@@ -1,3 +1,5 @@
+<!-- posts/post_detail.html -->
+
 {% extends '_base.html' %}
 {% load static %}
 
@@ -10,5 +12,19 @@
     <h1>{{ post.title }}</h1>
     <h2><a href="{% url 'profile-detail' pk=post.author.id %}">{{ post.author }}</a></h2>
     <h3>{{ post.body }}</h3>
+</div>
+<div class="post-comments">
+    <div class="comments">
+        <h4>Comments ({{ post.comments.count }})</h4>
+        {% for comment in post.comments.all %}
+            <p>{{ comment.author.username }}: {{ comment.text }}</p>
+        {% endfor %}
+    </div>
+
+    <form method="post" action="{% url 'post-detail' pk=post.id %}">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Add Comment</button>
+    </form>
 </div>
 {% endblock %}
