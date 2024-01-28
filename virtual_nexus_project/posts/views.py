@@ -27,8 +27,6 @@ class PostsListView(View):
         return render(request, self.template_name, {'posts':posts})
 
 
-# views.py
-
 class PostDetailView(View):
     """Return detail of posts or 404"""
 
