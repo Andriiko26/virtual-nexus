@@ -2,9 +2,9 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.shortcuts import render, get_object_or_404, redirect
 from django.views import View 
 from django.contrib import messages
-from .models import Post
-from .forms import PostForm
-
+from .models import Post, Comment
+from .forms import PostForm, CommentForm
+from allauth.account.models import EmailAddress
 
 class PostsListView(View):
     """Return list of posts"""
@@ -27,19 +27,40 @@ class PostsListView(View):
         return render(request, self.template_name, {'posts':posts})
 
 
+# views.py
+
 class PostDetailView(View):
     """Return detail of posts or 404"""
 
     template_name = 'posts/post_detail.html'
-    
-    def get(self, request, pk):
 
+    def get(self, request, pk):
         post = get_object_or_404(Post, pk=pk)
+        comments = Comment.objects.filter(post=post)
+        form = CommentForm()
+
         context = {
             'post': post,
+            'comments': comments,
+            'form': form,
         }
         return render(request, self.template_name, context)
 
+    def post(self, request, pk):
+        user = request.user
+        post = get_object_or_404(Post, pk=pk)
+        form = CommentForm(request.POST)
+
+        if form.is_valid():
+            comment = form.save(commit=False)
+            comment.author = user
+            comment.post = post
+            comment.save()
+            messages.success(request, 'Comment successfully added!')
+        else:
+            messages.error(request, 'Please correct the errors in the form.')
+
+        return redirect('post-detail', pk=pk)
 
 class CreatePostView(View):
     """Create post class
