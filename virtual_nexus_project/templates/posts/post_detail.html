@@ -14,17 +14,30 @@
     <h3>{{ post.body }}</h3>
 </div>
 <div class="post-comments">
+    {% if user.is_authenticated %}
     <div class="comments">
         <h4>Comments ({{ post.comments.count }})</h4>
         {% for comment in post.comments.all %}
             <p>{{ comment.author.username }}: {{ comment.text }}</p>
+            <p>Created at: {{ comment.created_at }}</p>
         {% endfor %}
     </div>
+    <hr>
 
+    <p>Only users with verified email can add comments!</p>
+    {% if email_verified %}
+        <p>Please confirm your email address to add a comment.</p>
+    {% else %}
     <form method="post" action="{% url 'post-detail' pk=post.id %}">
         {% csrf_token %}
         {{ form.as_p }}
         <button type="submit">Add Comment</button>
     </form>
+    {% endif %}
+    
+    {% else %}
+    <p>You need to log in if you want to see the comments: <a href="{% url 'account_login' %}">Login</a></p>
+    {% endif%}
+    
 </div>
 {% endblock %}
