@@ -48,6 +48,7 @@ class PostDetailView(View):
         user = request.user
         post = get_object_or_404(Post, pk=pk)
         form = CommentForm(request.POST)
+        email = EmailAddress.objects.filter(user=user, verified=True) 
 
         if form.is_valid():
             comment = form.save(commit=False)
@@ -58,7 +59,14 @@ class PostDetailView(View):
         else:
             messages.error(request, 'Please correct the errors in the form.')
 
-        return redirect('post-detail', pk=pk)
+        context = {
+        'post': post,
+        'comments': Comment.objects.filter(post=post),
+        'form': form,
+        'email_verified': email.exists(),
+        }
+
+        return render(request, self.template_name, context)
 
 class CreatePostView(View):
     """Create post class
