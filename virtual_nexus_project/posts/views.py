@@ -28,7 +28,11 @@ class PostsListView(View):
 
 
 class PostDetailView(View):
-    """Return detail of posts or 404"""
+    """Return detail of posts or 404
+    Also, it returns a form for live comments if the user has verified its email  
+    If the method is GET, it returns the form, post, and all comments.
+    If the method is POST, it saves a comment.
+    """
 
     template_name = 'posts/post_detail.html'
 
