@@ -37,10 +37,15 @@ class PostDetailView(View):
         comments = Comment.objects.filter(post=post)
         form = CommentForm()
 
+        email_verified = False
+        if request.user.is_authenticated:
+            email_verified = EmailAddress.objects.filter(user=request.user, verified=True).exists()
+        
         context = {
             'post': post,
             'comments': comments,
             'form': form,
+            'email_verified': email_verified,
         }
         return render(request, self.template_name, context)
 
@@ -48,9 +53,12 @@ class PostDetailView(View):
         user = request.user
         post = get_object_or_404(Post, pk=pk)
         form = CommentForm(request.POST)
-        email = EmailAddress.objects.filter(user=user, verified=True) 
 
-        if form.is_valid():
+        email_verified = False # checking is user an anonymous by default yes
+        if request.user.is_authenticated:
+            email_verified = EmailAddress.objects.filter(user=request.user, verified=True).exists()
+
+        if form.is_valid() and email_verified:
             comment = form.save(commit=False)
             comment.author = user
             comment.post = post
@@ -63,7 +71,7 @@ class PostDetailView(View):
         'post': post,
         'comments': Comment.objects.filter(post=post),
         'form': form,
-        'email_verified': email.exists(),
+        'email_verified': email_verified,
         }
 
         return render(request, self.template_name, context)

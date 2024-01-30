@@ -26,13 +26,13 @@
 
     <p>Only users with verified email can add comments!</p>
     {% if email_verified %}
-        <p>Please confirm your email address to add a comment.</p>
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Add Comment</button>
+        </form>
     {% else %}
-    <form method="post" action="{% url 'post-detail' pk=post.id %}">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Add Comment</button>
-    </form>
+        <p>Please confirm your email address to add a comment.</p>
     {% endif %}
     
     {% else %}
