@@ -9,11 +9,11 @@ from allauth.account.models import EmailAddress
 class PostsListView(View):
     """Return list of posts"""
     template_name = 'posts/index.html'
-    posts_per_page = 3
+    posts_per_page = 10
 
     def get(self, request):
-        post_list = Post.objects.select_related('author').only('title', 'author__username').order_by('-title')
-
+        
+        post_list = Post.objects.select_related('author').only('title','author__username').order_by('-title')
         paginator = Paginator(post_list, self.posts_per_page)
         page = request.GET.get('page')
 
@@ -43,7 +43,8 @@ class PostDetailView(View):
 
         email_verified = False
         if request.user.is_authenticated:
-            email_verified = EmailAddress.objects.filter(user=request.user, verified=True).exists()
+            email_verified = EmailAddress.objects.filter(user=request.user,
+                                                        verified=True).exists()
         
         context = {
             'post': post,
@@ -54,14 +55,15 @@ class PostDetailView(View):
         return render(request, self.template_name, context)
 
     def post(self, request, pk):
+
         user = request.user
         post = get_object_or_404(Post, pk=pk)
         form = CommentForm(request.POST)
-
         email_verified = False # checking is user an anonymous by default yes
+        
         if request.user.is_authenticated:
-            email_verified = EmailAddress.objects.filter(user=request.user, verified=True).exists()
-
+            email_verified = EmailAddress.objects.filter(user=request.user,
+                                                         verified=True).exists()
         if form.is_valid() and email_verified:
             comment = form.save(commit=False)
             comment.author = user
@@ -77,7 +79,6 @@ class PostDetailView(View):
         'form': form,
         'email_verified': email_verified,
         }
-
         return render(request, self.template_name, context)
 
 class CreatePostView(View):
@@ -100,6 +101,7 @@ class CreatePostView(View):
     def post(self, request):
 
         form = self.form_class(request.POST)
+
         if form.is_valid():
             post = form.save(commit=False)
             post.author = request.user
@@ -118,6 +120,10 @@ class PostSearch(View):
         
         query = request.GET.get('q','')
         result_posts = Post.objects.filter(title__icontains=query)
-        return render(request, self.template_name, {'posts':result_posts, \
-                                                    'query':query})
+
+        context = {
+            'posts':result_posts,
+            'query':query
+        }
+        return render(request, self.template_name, context)
     
