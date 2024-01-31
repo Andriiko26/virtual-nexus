@@ -29,3 +29,11 @@ class Comment(models.Model):
 
     def __str__(self) -> str:
         return f'{self.author.username} - {self.text[:20]}'
+
+class Like(models.Model):
+
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    post = models.ForeignKey(Post, on_delete=models.CASCADE)
+
+    def __str__(self) -> str:
+        return f'{self.user}: {self.post}'
