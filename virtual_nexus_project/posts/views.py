@@ -2,7 +2,7 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.shortcuts import render, get_object_or_404, redirect
 from django.views import View 
 from django.contrib import messages
-from .models import Post, Comment
+from .models import Post, Comment, Like
 from .forms import PostForm, CommentForm
 from allauth.account.models import EmailAddress
 
@@ -126,4 +126,18 @@ class PostSearch(View):
             'query':query
         }
         return render(request, self.template_name, context)
+
+class PostLike(View):
     
+    def post(self, request, pk):
+        try:
+            post = get_object_or_404(Post, id=pk)
+            like, created = Like.objects.get_or_create(user=request.user, post=post)
+
+            if not created:
+                like.delete()
+
+            return redirect('post-home')
+        except TypeError:   #user doesn't log in
+            messages.error(request, "You're not login")
+            return redirect('post-home')
