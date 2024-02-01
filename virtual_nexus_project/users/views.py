@@ -28,9 +28,9 @@ class ProfileView(View):
         form = UserProfileForm(request.POST, request.FILES, instance=profile)
         
         if form.is_valid():
-            form.save(commit=False)
-            form.instance.bio = request.POST.get('bio', '')
-            form.instance.avatar = request.FILES.get('avatar', None)
+            form.cleaned_data['bio'] = request.POST.get('bio', '')
+            form.cleaned_data['username'] = request.POST.get('username', '')
+            form.cleaned_data['avatar'] = request.FILES.get('avatar', None)
             form.save()
             
             return redirect('profile')
