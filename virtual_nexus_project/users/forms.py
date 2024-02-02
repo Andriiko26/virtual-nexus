@@ -14,7 +14,7 @@ class UserProfileForm(forms.ModelForm):
 
         self.fields['username'].widget.attrs['placeholder'] = 'Enter your username'
 
-    def save(self, commit=True):
+    def save(self, commit=True):    #saving username to user model
         user_profile = super(UserProfileForm, self).save(commit=False)
         user_profile.user.username = self.cleaned_data['username']
         if commit:
