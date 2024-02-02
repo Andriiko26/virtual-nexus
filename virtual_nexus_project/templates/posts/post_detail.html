@@ -12,6 +12,13 @@
     <h1>{{ post.title }}</h1>
     <h2><a href="{% url 'profile-detail' pk=post.author.id %}">{{ post.author }}</a></h2>
     <h3>{{ post.body }}</h3>
+        {% if post.photo %}
+            <img src="{{ post.photo.url }}" alt="Photo" class="post-image">
+        {% else %}
+            <h1>No image have yet</h1>
+        {% endif %}
+    <hr>
+
 </div>
 <div class="post-comments">
     {% if user.is_authenticated %}
