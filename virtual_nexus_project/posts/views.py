@@ -100,7 +100,7 @@ class CreatePostView(View):
     
     def post(self, request):
 
-        form = self.form_class(request.POST)
+        form = self.form_class(request.POST, request.FILES)
 
         if form.is_valid():
             post = form.save(commit=False)
