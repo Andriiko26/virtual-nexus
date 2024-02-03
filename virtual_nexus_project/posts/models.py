@@ -3,6 +3,13 @@ from django.contrib.auth.models import User
 from django.urls import reverse
 import uuid
 
+class Tag(models.Model):
+    tag_text = models.CharField(max_length=10, unique=True)
+
+    def save(self, *args, **kwargs):
+        self.tag_text = self.tag_text.lower()
+        super().save(*args, **kwargs)
+
 class Post(models.Model):
     
     id = models.UUIDField(
@@ -14,6 +21,7 @@ class Post(models.Model):
     author = models.ForeignKey(User, on_delete=models.CASCADE, related_name='author')
     body = models.TextField()
     photo = models.ImageField(upload_to='post_photos/', blank=True, null=True)
+    tags = models.ManyToManyField(Tag, related_name='posts')
 
     def __str__(self):
         return self.title
@@ -21,8 +29,6 @@ class Post(models.Model):
     def get_absolute_url(self):
         return reverse('post-detail', args=(str(self.id),))
     
-
-
 
 class Comment(models.Model):
     
