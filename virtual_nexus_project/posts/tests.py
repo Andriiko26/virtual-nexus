@@ -50,4 +50,16 @@ class PostTests(TestCase):
         # check if the post was successfully created
         self.assertEqual(response.status_code, 302)
         self.assertTrue(Post.objects.filter(title='test post123', body='test post body', author_id=self.user.id).exists())
-    
+
+    def test_post_search_not_found(self):
+        """Testing what heppen if post not found
+        """
+        query_not_found = 'this query should not found '
+
+        response = self.client.get(reverse('post-search'), {'q': query_not_found})
+
+        self.assertEqual(response.status_code, 200)
+
+        self.assertContains(response, f'Searching results for "{ query_not_found }"')
+        self.assertContains(response, 'Nothing has been found')
+
