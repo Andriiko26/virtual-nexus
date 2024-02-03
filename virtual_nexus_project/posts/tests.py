@@ -63,3 +63,14 @@ class PostTests(TestCase):
         self.assertContains(response, f'Searching results for "{ query_not_found }"')
         self.assertContains(response, 'Nothing has been found')
 
+    def test_post_search_found(self):
+        """Testing what heppen if post found
+        """
+        query = 'test post'
+
+        response = self.client.get(reverse('post-search'), {'q': query})
+
+        self.assertEqual(response.status_code, 200)
+
+        self.assertContains(response, f'Searching results for "{ query }"')
+        self.assertContains(response, f'{query}')
