@@ -13,7 +13,7 @@ class PostsListView(View):
 
     def get(self, request):
         
-        post_list = Post.objects.select_related('author').only('title','author__username').order_by('-title')
+        post_list = Post.objects.select_related('author').only('title', 'author__username').order_by('-title')  #sort only important data for this page
         paginator = Paginator(post_list, self.posts_per_page)
         page = request.GET.get('page')
 
@@ -36,16 +36,24 @@ class PostDetailView(View):
 
     template_name = 'posts/post_detail.html'
 
-    def get(self, request, pk):
-        post = get_object_or_404(Post, pk=pk)
-        comments = Comment.objects.filter(post=post)
-        form = CommentForm()
+    def CheckEmail(request):
+        """Check is user auntificate his email
+        """
 
         email_verified = False
         if request.user.is_authenticated:
             email_verified = EmailAddress.objects.filter(user=request.user,
                                                         verified=True).exists()
-        
+        return email_verified
+    
+    def get(self, request, pk):
+
+        post = get_object_or_404(Post, pk=pk)
+        comments = Comment.objects.filter(post=post)
+        form = CommentForm()
+
+        email_verified = PostDetailView.CheckEmail()
+
         context = {
             'post': post,
             'comments': comments,
@@ -59,11 +67,8 @@ class PostDetailView(View):
         user = request.user
         post = get_object_or_404(Post, pk=pk)
         form = CommentForm(request.POST)
-        email_verified = False # checking is user an anonymous by default yes
+        email_verified = PostDetailView.CheckEmail()
         
-        if request.user.is_authenticated:
-            email_verified = EmailAddress.objects.filter(user=request.user,
-                                                         verified=True).exists()
         if form.is_valid() and email_verified:
             comment = form.save(commit=False)
             comment.author = user
@@ -114,6 +119,7 @@ class CreatePostView(View):
         return render(request, self.template_name, context)
     
 class PostSearch(View):
+
     template_name = 'posts/search_results.html'
 
     def get(self, request):
@@ -130,6 +136,7 @@ class PostSearch(View):
 class PostLike(View):
     
     def post(self, request, pk):
+        
         try:
             post = get_object_or_404(Post, id=pk)
             like, created = Like.objects.get_or_create(user=request.user, post=post)
