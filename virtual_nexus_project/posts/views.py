@@ -52,7 +52,7 @@ class PostDetailView(View):
         comments = Comment.objects.filter(post=post)
         form = CommentForm()
 
-        email_verified = PostDetailView.CheckEmail()
+        email_verified = PostDetailView.CheckEmail(request)
 
         context = {
             'post': post,
