@@ -14,7 +14,7 @@ class PostForm(forms.ModelForm):
 
     def clean_tags(self):
         raw_tags = self.cleaned_data['tags']
-        tag_texts = [tag.strip().lower() for tag in raw_tags.split(',') if tag.strip()]
+        tag_texts = [tag.strip().lower() for tag in raw_tags.split(',') if tag.strip()] 
         tags = [Tag.objects.get_or_create(tag_text=tag)[0] for tag in tag_texts]
 
         return tags
