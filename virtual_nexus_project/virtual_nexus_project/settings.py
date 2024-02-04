@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     # Third-party 
     'allauth',
     'allauth.account', 
+    'rest_framework',
 
     #debug tool
     'debug_toolbar',
