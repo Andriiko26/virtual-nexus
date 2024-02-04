@@ -26,6 +26,7 @@ urlpatterns = [
     # local 
     path('posts/', include('posts.urls')),
     path('profile/', include('users.urls')),
+    path('api/v1/', include('api.urls')),
     # tool bar
     path('__debug__/', include('debug_toolbar.urls')),
 
