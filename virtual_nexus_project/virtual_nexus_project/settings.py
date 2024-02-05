@@ -51,6 +51,7 @@ INSTALLED_APPS = [
     #local
     'posts.apps.PostsConfig',
     'users.apps.UsersConfig',
+    'api.apps.ApiConfig'
 ]
 # djagno-allauth config
 SITE_ID = 1
