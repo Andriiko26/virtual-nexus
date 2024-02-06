@@ -42,3 +42,16 @@ class PostDetailView(APIView):
         post.delete()
         
         return Response(status=status.HTTP_204_NO_CONTENT)
+    
+class PostCreateView(APIView):
+
+
+    def post(request, *args, **kwargs):
+
+        serializer = PostSerializer(data=request.data)
+        
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status.HTTP_201_CREATED)
+        
+        return Response(serializer.data, status.HTTP_400_BAD_REQUEST)
