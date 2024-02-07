@@ -8,6 +8,7 @@ Django==5.0.1
 django-allauth==0.50.0
 django-debug-toolbar==4.2.0
 djangorestframework==3.14.0
+djangorestframework-simplejwt==5.3.1
 idna==3.6
 oauthlib==3.2.2
 pillow==10.2.0
