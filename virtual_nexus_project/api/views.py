@@ -62,8 +62,19 @@ class PostCreateView(APIView):
     
 
 class PostLikeView(APIView):
+    """It should returned like counter and if the method is POST update counter
+    *only registrated users can use it
+    """
+
     authentication_classes = [JWTAuthentication]
     permission_classes = [IsAuthenticated]
+
+    def get(self, request, pk, *args, **kwargs):
+
+        post = get_object_or_404(Post, pk=pk)
+        post.likes_count = post.like_set.count()
+
+        return Response({'likes_count': post.likes_count})
 
     def post(self, request, pk, *args, **kwargs):
         
