@@ -33,6 +33,7 @@ DEFAULT_FROM_EMAIL=
 
 #pagination
 API_PAGINATION=
+POST_PAGINATION=
 ```
 
 ## If you find a bug
