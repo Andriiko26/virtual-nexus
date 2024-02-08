@@ -7,11 +7,13 @@ Posts:
 - Adding your post with a photo and tags
 - Commenting posts
 - Like post
-Searching for an article
+- Searching for an article
+
 Users:
 - Change your username.
 - Adding a profile photo
 - Adding a description to your profile
+
 API:
 - Get all posts
 - Creating your own
