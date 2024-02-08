@@ -1,15 +1,16 @@
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.shortcuts import render, get_object_or_404, redirect
-from django.views import View 
-from django.contrib import messages
-from .models import Post, Comment, Like
-from .forms import PostForm, CommentForm
 from allauth.account.models import EmailAddress
+from .forms import PostForm, CommentForm
+from .models import Post, Comment, Like
+from django.contrib import messages
+from django.views import View 
+import os
 
 class PostsListView(View):
     """Return list of posts"""
     template_name = 'posts/index.html'
-    posts_per_page = 10
+    posts_per_page = os.getenv('POST_PAGINATION')
 
     def get(self, request):
         
