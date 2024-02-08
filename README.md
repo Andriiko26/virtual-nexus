@@ -1,6 +1,21 @@
 # Social media
 It's only beck-end part so I took all the front-end from ChatGPT
 
+## Futures
+Posts:
+- View all posts
+- Adding your post with a photo and tags
+- Commenting posts
+- Like post
+Searching for an article
+Users:
+- Change your username.
+- Adding a profile photo
+- Adding a description to your profile
+API:
+- Get all posts
+- Creating your own
+- Like post and get like counter
 ## To run it on your machine
 Clone the ropository: `git clone https://github.com/Maksim325/virtual-nexus.git`
 
