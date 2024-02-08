@@ -30,6 +30,9 @@ PORT=
 
 #email
 DEFAULT_FROM_EMAIL=
+
+#pagination
+API_PAGINATION=
 ```
 
 ## If you find a bug
