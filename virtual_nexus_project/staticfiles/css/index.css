@@ -23,6 +23,7 @@
     font-weight: bold;
 }
 
+/*searching*/
 .search-form {
     display: flex;
     flex-direction: column;
@@ -53,7 +54,7 @@
 .search-button:hover {
     background-color: #555;
 }
-
+/*posts*/
 .container {
     background-color: #f9f9f9;
     border: 1px solid #ddd;
@@ -78,4 +79,11 @@
 
 .container h3 a:hover {
     color: #999;
+}
+
+.like-button {
+    background: transparent; 
+    border: none; 
+    padding: 10px 15px; 
+    cursor: pointer; 
 }
