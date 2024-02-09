@@ -1,5 +1,3 @@
-<!-- posts/post_detail.html -->
-
 {% extends '_base.html' %}
 {% load static %}
 
@@ -19,7 +17,7 @@
         {% endfor %}
     </ul>
     {% endif %}
-    <h3>{{ post.body }}</h3>
+    <h3>{{ post.formatted_markdown|safe }}</h3>
         {% if post.photo %}
             <img src="{{ post.photo.url }}" alt="Photo" class="post-image">
         {% else %}
