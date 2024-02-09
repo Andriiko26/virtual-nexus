@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'allauth',
     'allauth.account', 
     'rest_framework',
+    'markdownx',
 
     #debug tool
     'debug_toolbar',
