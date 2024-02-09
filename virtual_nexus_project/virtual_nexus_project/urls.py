@@ -29,6 +29,8 @@ urlpatterns = [
     path('api/v1/', include('api.urls')),
     # tool bar
     path('__debug__/', include('debug_toolbar.urls')),
+    #markdown
+    path('markdownx/',include('markdownx.urls')),
 
 ]
 if settings.DEBUG:
