@@ -1,3 +1,4 @@
+from markdownx.widgets import MarkdownxWidget
 from django import forms
 from .models import (
     Post,
@@ -11,7 +12,7 @@ class PostForm(forms.ModelForm):
     class Meta:
         model = Post
         fields = ['title', 'body', 'photo', 'tags']
-
+        widgets = {'body': MarkdownxWidget()}
     def clean_tags(self):
         raw_tags = self.cleaned_data['tags']
         tag_texts = [tag.strip().lower() for tag in raw_tags.split(',') if tag.strip()] 
