@@ -1,5 +1,6 @@
 from markdownx.models import MarkdownxField
 from django.db import models
+from markdownx.utils import markdownify
 from django.contrib.auth.models import User
 from django.urls import reverse
 import uuid
@@ -26,6 +27,10 @@ class Post(models.Model):
 
     def __str__(self):
         return self.title
+    
+    @property
+    def formatted_markdown(self):
+        return markdownify(self.body)
     
     def get_absolute_url(self):
         return reverse('post-detail', args=(str(self.id),))
