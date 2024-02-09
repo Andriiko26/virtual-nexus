@@ -11,7 +11,7 @@ class PostForm(forms.ModelForm):
 
     class Meta:
         model = Post
-        fields = ['title', 'body', 'photo', 'tags']
+        fields = ['title', 'body', 'tags']
         widgets = {'body': MarkdownxWidget()}
     def clean_tags(self):
         raw_tags = self.cleaned_data['tags']

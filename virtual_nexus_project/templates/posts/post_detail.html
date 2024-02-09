@@ -18,11 +18,7 @@
     </ul>
     {% endif %}
     <h3>{{ post.formatted_markdown|safe }}</h3>
-        {% if post.photo %}
-            <img src="{{ post.photo.url }}" alt="Photo" class="post-image">
-        {% else %}
-            <h1>No image have yet</h1>
-        {% endif %}
+        
     <hr>
 
 </div>
