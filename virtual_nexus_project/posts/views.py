@@ -149,3 +149,23 @@ class PostLike(View):
         except TypeError:   #user doesn't log in
             messages.error(request, "You're not login")
             return redirect('post-home')
+        
+class PostEditView(View):
+    """Check is form valid and redirect to post.
+    *Only author of the post can edit it
+    """
+    template_name = 'posts/post_edit.html'
+
+    def get(self, request, pk, *args, **kwargs):
+
+        post = get_object_or_404(Post, pk=pk)
+        form = PostForm(instance=post)
+        return render(request, self.template_name, {'form':form})
+    
+    def post(self, request, pk, *args, **kwargs):
+        post = get_object_or_404(Post, pk=pk)
+        form = PostForm(request.POST, instance=post)
+        if form.is_valid():
+            form.save()
+            return redirect('post-detail', pk=pk)
+        return redirect('post-detail', pk=pk)
