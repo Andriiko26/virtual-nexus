@@ -5,6 +5,7 @@ from .views import (
     CreatePostView,
     PostSearch,
     PostLike,
+    PostEditView,
 )
 
 urlpatterns = [
@@ -13,4 +14,5 @@ urlpatterns = [
     path('create_post/', CreatePostView.as_view(), name='post-create'),
     path('search/', PostSearch.as_view(), name='post-search'),
     path('<uuid:pk>/like/', PostLike.as_view(), name='post-like'),
+    path('<uuid:pk>/edit', PostEditView.as_view(), name='post-edit'),
 ]
