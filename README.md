@@ -4,10 +4,12 @@ It's only beck-end part so I took all the front-end from ChatGPT
 ## Futures
 Posts:
 - View all posts
-- Adding your post with a photo and tags
+- Adding your post with tags
 - Commenting posts
 - Like post
 - Searching for an article
+- Markdown is supported
+- Edit post
 
 Users:
 - Change your username.
