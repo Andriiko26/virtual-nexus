@@ -10,6 +10,7 @@ Posts:
 - Searching for an article
 - Markdown is supported
 - Edit post
+- Pagination of posts on one page
 
 Users:
 - Change your username.
