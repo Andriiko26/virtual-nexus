@@ -6,7 +6,7 @@ from django.urls import reverse
 import uuid
 
 class Tag(models.Model):
-    tag_text = models.CharField(max_length=10, unique=True)
+    tag_text = models.CharField(max_length=100, unique=True)
 
     def save(self, *args, **kwargs):
         self.tag_text = self.tag_text.lower()
@@ -22,7 +22,7 @@ class Post(models.Model):
     title = models.CharField(max_length=50)
     author = models.ForeignKey(User, on_delete=models.CASCADE, related_name='author')
     body = MarkdownxField()
-    tags = models.ManyToManyField(Tag, related_name='posts')
+    tags = models.ManyToManyField(Tag)
 
     def __str__(self):
         return self.title
