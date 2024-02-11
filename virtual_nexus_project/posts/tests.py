@@ -74,3 +74,22 @@ class PostTests(TestCase):
 
         self.assertContains(response, f'Searching results for "{ query }"')
         self.assertContains(response, f'{query}')
+
+    def test_post_edit(self):
+        """Testing is posts editing correct 
+        """
+
+        self.client.force_login(self.user)
+        url = reverse('post-edit', args=[self.post.id])
+
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, 200)
+
+        response = self.client.post(url, {'title':'the best edited post ever',
+                                          'body':'body of the best edited post ever'})
+        self.assertEqual(response.status_code, 302)
+
+        updated_post = Post.objects.get(id=self.post.id)
+        
+        self.assertEqual(updated_post.title, 'the best edited post ever')
+        self.assertEqual(updated_post.body, 'body of the best edited post ever')
