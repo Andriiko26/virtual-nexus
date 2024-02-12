@@ -1,12 +1,16 @@
 {% extends '_base.html' %}
+{% load static %}
 
 {% block title %}Edit Post{% endblock title %}
 
 {% block content %}
-    <h2>Edit Post</h2>
-    <form method="post" enctype="multipart/form-data">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Save Changes</button>
-    </form>
+<link rel="stylesheet" href="{% static 'css/post_create.css' %}">
+
+<h1>Edit post</h1>
+<form method="post" enctype="multipart/form-data" class="creating-form">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Edit</button>
+</form>
+{{ form.media }}
 {% endblock %}
