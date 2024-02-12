@@ -169,3 +169,11 @@ class PostEditView(View):
             form.save()
             return redirect('post-detail', pk=pk)
         return redirect('post-detail', pk=pk)
+    
+class PostDeleteView(View):
+
+    def get(self, request, pk, *args, **kwargs):
+
+        get_object_or_404(Post, pk=pk).delete()
+
+        return redirect('post-home')
