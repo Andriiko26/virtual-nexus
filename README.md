@@ -11,6 +11,7 @@ Posts:
 - Markdown is supported
 - Edit post
 - Pagination of posts on one page
+- Deleting posts
 
 Users:
 - Change your username.
