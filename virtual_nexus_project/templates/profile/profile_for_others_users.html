@@ -17,6 +17,7 @@
         <p>Username: {{ user.user.username }}</p>
         <p>Date join: {{ user.user.date_joined }}</p>
         <p>Bio: {{ user.bio }}</p>
+        <p>This user rating is {{rating}}</p>
         {% if user_posts.count >= 1 %}
             <p>This user wrote {{ user_posts.count }} post(s):</p>
             {% for post in user_posts %}
