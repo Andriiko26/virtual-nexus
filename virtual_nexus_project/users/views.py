@@ -3,8 +3,8 @@ from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 from django.views import View
 from django.urls import reverse_lazy
-
-from posts.models import Post
+from django.utils import timezone
+from posts.models import Post, Like
 from .forms import UserProfileForm
 from .models import UserProfile
 
@@ -48,5 +48,10 @@ class ProfileDetailView(View):
 
         user_profile = get_object_or_404(UserProfile, pk=pk)
         user_posts = Post.objects.filter(author=user_profile.user)
+        users_likes = 0
+        for post in user_posts:
+            users_likes+=Like.objects.filter(post=post).count()
+        
+        user_rating = (user_posts.count() + users_likes*0.3) / (user_profile.user.date_joined - timezone.now()).days 
 
-        return render(request, self.template_name, {'user': user_profile, 'user_posts': user_posts})
+        return render(request, self.template_name, {'user': user_profile, 'user_posts': user_posts, 'rating':abs(round(user_rating, 2))})
