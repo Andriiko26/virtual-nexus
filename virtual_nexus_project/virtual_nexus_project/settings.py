@@ -69,6 +69,7 @@ LOGOUT_REDIRECT_URL = 'post-home'
 PRODUCT=os.getenv('PRODUCT')
 if PRODUCT:
     SECURE_BROWSER_XSS_FILTER = True
+    X_FRAME_OPTIONS = 'DENY' 
 
 # email config
 ACCOUNT_USERNAME_REQUIRED = True
