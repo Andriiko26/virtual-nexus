@@ -41,6 +41,7 @@ Setup all this enviroment
 #django
 SECRET_KEY=
 DEBUG=
+PRODUCT=
 
 #postgree
 NAME=
