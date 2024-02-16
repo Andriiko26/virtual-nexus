@@ -1,7 +1,7 @@
 from django.contrib.auth import get_user_model
 from django.urls import reverse
 from django.test import TestCase
-from .models import Post
+from .models import Post, Like
 
 
 
@@ -93,3 +93,12 @@ class PostTests(TestCase):
         
         self.assertEqual(updated_post.title, 'the best edited post ever')
         self.assertEqual(updated_post.body, 'body of the best edited post ever')
+
+    def test_post_like(self):
+
+        self.client.force_login(self.user)
+
+        response = self.client.post(reverse('post-like', kwargs={'pk':self.post.id}))
+
+        self.assertEqual(response.status_code, 302)
+        self.assertTrue(Like.objects.filter(post=self.post, user=self.user).exists())
