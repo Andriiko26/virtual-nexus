@@ -45,7 +45,6 @@ INSTALLED_APPS = [
     'allauth.account', 
     'rest_framework',
     'markdownx',
-    'sslserver',
 
     #debug tool
     'debug_toolbar',
@@ -68,7 +67,7 @@ LOGOUT_REDIRECT_URL = 'post-home'
 
 #product
 PRODUCT = os.getenv('PRODUCT')
-if PRODUCT:
+if PRODUCT == 'True':
     SECURE_BROWSER_XSS_FILTER = True
     X_FRAME_OPTIONS = 'DENY' 
     SECURE_SSL_REDIRECT = True
