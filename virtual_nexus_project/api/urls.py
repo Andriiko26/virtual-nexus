@@ -6,6 +6,7 @@ from .views import (
     PostCreateView, 
     PostLikeView,
     PostCommentListView,
+    PostCommentCreateView,
 )
 
 urlpatterns = [
@@ -15,4 +16,5 @@ urlpatterns = [
     path('token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('<uuid:pk>/like', PostLikeView.as_view()),
     path('<uuid:pk>/comments', PostCommentListView.as_view()),
+    path('<uuid:pk>/comments/create', PostCommentCreateView.as_view()),
 ]
