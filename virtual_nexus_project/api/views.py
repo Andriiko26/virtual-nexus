@@ -110,3 +110,23 @@ class PostCommentListView(APIView):
         serializer = CommentListSerializer(comments, many=True)
         return Response(serializer.data)
 
+class PostCommentCreateView(APIView):
+    """Create comments
+    """
+    authentication_classes = [JWTAuthentication]
+    permission_classes = [IsAuthenticated]
+
+    def post(self, request, pk, *args, **kwargs):
+
+        post = get_object_or_404(Post, pk=pk)
+        
+        if not post:
+            return Response({"detail": "Post does not exist."}, status=status.HTTP_404_NOT_FOUND)
+
+        serializer = CommentCreateSerializer(data=request.data, context={'post': post})
+
+        if serializer.is_valid():
+            serializer.save(author=request.user)
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
