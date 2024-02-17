@@ -1,6 +1,12 @@
 from rest_framework_simplejwt.views import TokenObtainPairView
 from django.urls import path
-from .views import PostListView, PostDetailView, PostCreateView, PostLikeView
+from .views import (
+    PostListView, 
+    PostDetailView, 
+    PostCreateView, 
+    PostLikeView,
+    PostCommentListView,
+)
 
 urlpatterns = [
     path('', PostListView.as_view()),
@@ -8,4 +14,5 @@ urlpatterns = [
     path('create/', PostCreateView.as_view()),
     path('token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('<uuid:pk>/like', PostLikeView.as_view()),
+    path('<uuid:pk>/comments', PostCommentListView.as_view()),
 ]
