@@ -23,6 +23,16 @@ API:
 - Creating your own
 - Like post and get like counter
 - Commenting posts and get list of comments
+
+## Endpoints
+- List of posts: `api/v1/`
+- Detail of post: `api/v1/id`
+- Like post: `api/v1/id/like`
+- List of comments: `api/v1/id/comments`
+- Add a comment: `api/v1/id/comments/create`
+- Get token: `api/v1/token`
+- Create post: `api/v1/create/`
+
 ## To run it on your machine
 Clone the ropository: `git clone https://github.com/Maksim325/virtual-nexus.git`
 
