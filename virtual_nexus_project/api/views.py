@@ -5,9 +5,17 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from django.shortcuts import get_object_or_404
 from rest_framework import status
-from posts.models import Post, Like
-from .serializers import PostSerializer
+from posts.models import Post, Like, Comment
+from .serializers import PostSerializer, CommentListSerializer, CommentCreateSerializer
 from django.contrib.auth import get_user_model
+
+def get_user_id(request):
+    """Accepts a request and returns the user id with the token in this request 
+    """
+    raw_token = request.headers.get('Authorization').split(' ')[1]
+    decode_token = AccessToken(token=raw_token)
+    return decode_token['user_id']
+
 
 class PostListView(APIView):
     """Retruns all post data 
@@ -77,13 +85,8 @@ class PostLikeView(APIView):
         return Response({'likes_count': post.likes_count})
 
     def post(self, request, pk, *args, **kwargs):
-        
-        raw_token = request.headers.get('Authorization').split(' ')[1]
-        decode_token = AccessToken(token=raw_token)
-        user_id = decode_token['user_id']
 
-        user = get_object_or_404(get_user_model(), id=user_id)
-
+        user = get_object_or_404(get_user_model(), id=get_user_id(request))
         post = get_object_or_404(Post, id=pk)
         like, created = Like.objects.get_or_create(user=user, post=post)
 
@@ -93,3 +96,17 @@ class PostLikeView(APIView):
         post.likes_count = post.like_set.count()
         post.save()
         return Response({'likes_count': post.likes_count}, status=status.HTTP_200_OK)
+    
+class PostCommentListView(APIView):
+    """ return list of comments to this post
+    """
+
+
+    def get(self, request, pk, *args, **kwargs):
+
+        post = get_object_or_404(Post, pk=pk)
+        
+        comments = Comment.objects.filter(post=post)
+        serializer = CommentListSerializer(comments, many=True)
+        return Response(serializer.data)
+
