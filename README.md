@@ -22,6 +22,7 @@ API:
 - Get all posts
 - Creating your own
 - Like post and get like counter
+- Commenting posts and get list of comments
 ## To run it on your machine
 Clone the ropository: `git clone https://github.com/Maksim325/virtual-nexus.git`
 
