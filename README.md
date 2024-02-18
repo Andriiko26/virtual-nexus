@@ -36,9 +36,11 @@ API:
 - Creating your own
 - Like post and get like counter
 - Commenting posts and get list of comments
+- Searching posts
 
 ## Endpoints
 - List of posts: `api/v1/`
+- Search for posts `search/`
 - Detail of post: `api/v1/id`
 - Like post: `api/v1/id/like`
 - List of comments: `api/v1/id/comments`
