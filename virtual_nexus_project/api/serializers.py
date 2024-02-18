@@ -21,3 +21,6 @@ class CommentCreateSerializer(serializers.ModelSerializer):
         post = self.context.get('post')
         comment = Comment.objects.create(post=post, **validated_data)
         return comment
+
+class PostSearchSerializer(serializers.Serializer):
+    query = serializers.CharField()
