@@ -66,8 +66,8 @@ LOGIN_REDIRECT_URL = 'post-home'
 LOGOUT_REDIRECT_URL = 'post-home'
 
 #product
-PRODUCT = os.getenv('PRODUCT')
-if PRODUCT == 'True':
+PRODUCT = os.getenv('PRODUCT', default='developing')
+if PRODUCT == 'product':
     SECURE_BROWSER_XSS_FILTER = True
     X_FRAME_OPTIONS = 'DENY' 
     SECURE_SSL_REDIRECT = True
