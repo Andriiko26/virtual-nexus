@@ -6,7 +6,7 @@ from rest_framework.response import Response
 from django.shortcuts import get_object_or_404
 from rest_framework import status
 from posts.models import Post, Like, Comment
-from .serializers import PostSerializer, CommentListSerializer, CommentCreateSerializer
+from .serializers import PostSerializer, CommentListSerializer, CommentCreateSerializer, PostSearchSerializer
 from django.contrib.auth import get_user_model
 
 def get_user_id(request):
@@ -129,4 +129,23 @@ class PostCommentCreateView(APIView):
             serializer.save(author=request.user)
             return Response(serializer.data, status=status.HTTP_201_CREATED)
 
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    
+
+class PostSearchView(APIView):
+    """Return post by query
+    *It's only searching by title
+    """
+    def get(self, request, *args, **kwargs):
+
+        serializer = PostSearchSerializer(data=request.query_params)
+
+        if serializer.is_valid():
+
+            query = serializer.validated_data['query']
+            posts = Post.objects.filter(title__icontains=query)
+            posts_serializer = PostSerializer(posts, many=True)
+
+            return Response(posts_serializer.data, status=status.HTTP_200_OK)
+        
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
