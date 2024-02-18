@@ -7,6 +7,7 @@ from .views import (
     PostLikeView,
     PostCommentListView,
     PostCommentCreateView,
+    PostSearchView
 )
 
 urlpatterns = [
@@ -17,4 +18,5 @@ urlpatterns = [
     path('<uuid:pk>/like', PostLikeView.as_view()),
     path('<uuid:pk>/comments', PostCommentListView.as_view()),
     path('<uuid:pk>/comments/create', PostCommentCreateView.as_view()),
+    path('search/', PostSearchView.as_view()),
 ]
