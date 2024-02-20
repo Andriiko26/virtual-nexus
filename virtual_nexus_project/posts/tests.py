@@ -102,3 +102,15 @@ class PostTests(TestCase):
 
         self.assertEqual(response.status_code, 302)
         self.assertTrue(Like.objects.filter(post=self.post, user=self.user).exists())
+    
+    def test_post_delete(self):
+
+        self.client.force_login(self.user)
+        url = reverse('post-delete', args=[self.post.id])
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, 302)
+
+        try:
+            deleted_post = Post.objects.get(id=self.post.id)
+        except Post.DoesNotExist:   #It works
+            return 1
